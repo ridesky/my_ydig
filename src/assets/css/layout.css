@@ -1,3 +1,35 @@
-body{
-    background-color: skyblue;
+html{
+    font-size:62.5%;
+    margin:0;
 }
+
+body, div, a, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, form,input, p, blockquote, table, th, td, embed, object {
+    padding: 0;
+    margin: 0; 
+    box-sizing:border-box;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+    fieldset, img, abbr {
+    border: 0;
+}
+address, caption, cite, code, dfn, em, 
+h1, h2, h3, h4, h5, h6, th, var {
+    font-weight: normal;
+    font-style: normal;
+}
+ul {
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.clear{clear:both;}
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after{clear: both;overflow:hidden; }
+.clearfix{ display:block;}

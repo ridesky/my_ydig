@@ -1,18 +1,26 @@
 <template>
-  <div id="app">
-    <router-link to="/home">home页</router-link>
-    <router-link to="/room">room页面</router-link>
+<div>    
     <router-view></router-view>
-  </div>
+</div>
 </template>
 
 <script>
+
 export default {
   name: 'app',
   data () {
     return {
       
     }
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm=>{
+      console.log(window.location.pathname);
+      if(!window.location.pathname.substr(1)){
+          vm.$router.replace({path:"/home"})
+      }
+
+    })
   }
 }
 </script>
