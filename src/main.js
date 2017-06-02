@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './assets/components/home.vue'
 import Room from './assets/components/room.vue'
 
+import './assets/css/layout.css'
 // 引用vue插件
 Vue.use(VueRouter);
 
@@ -16,9 +17,17 @@ var router = new VueRouter({
       component: Home,
     },
     {
-      path:"/room/:roomID",
+      path: "*",
+      redirect: '/home',
+    },
+    {
+      path: "/room/:roomID",
       component: Room,
-    }
+    },
+    {
+      path: "*",
+      redirect: '/home',
+    },
   ]
 });
 new Vue({
@@ -26,8 +35,3 @@ new Vue({
   router,
   render: h => h(App)
 });
-
-
- ( ()=>{
-  console.log('hello world man');
-})()

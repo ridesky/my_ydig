@@ -20,6 +20,12 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        //读取顺序是从右到左
+        loader: 'style-loader!css-loader'
+        // loader:["style-loader","css-loader"],
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
@@ -30,7 +36,7 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      }
+      },
     ]
   },
   resolve: {
