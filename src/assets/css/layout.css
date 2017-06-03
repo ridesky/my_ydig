@@ -33,3 +33,11 @@ a{
 }
 .clearfix:after{clear: both;overflow:hidden; }
 .clearfix{ display:block;}
+
+
+
+/* cmoon section */ 
+body{
+    max-width: 600px;
+    margin: 0 auto;
+}
