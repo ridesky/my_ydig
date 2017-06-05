@@ -1,7 +1,6 @@
 import App from "././App.vue"
 import Home from "./assets/components/home.vue"
 import Room from "./assets/components/room.vue"
-import CreateRoom from "./assets/components/create_room.vue"
 
 // 路由配置
 export default {
@@ -16,11 +15,8 @@ export default {
     },
     {
       path: "/room/:roomID",
+      name:"room",
       component: Room,
-    },
-    {
-      path: "/createroom/",
-      component: CreateRoom,
     },
   ]
 };
