@@ -45,14 +45,17 @@ body{
         width:100%;        
         font-size: 20px;
     }
-    .title{
-        background-color: #00a3af;
-        color:white;
-        display:  -webkit-flex;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    .title a{
-        color:white;
-    }
+.title{
+    background-color: #00a3af;
+    color:white;
+    display:  -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.title a{
+    color:white;
+}
+.bg_wood{
+    
+}
