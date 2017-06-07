@@ -40,12 +40,16 @@ a{
 body{
     max-width: 600px;
     margin: 0 auto;
+    background: url('./../imgs/wood_pattern.jpg');
+}
+    .user {
 }
 #app{
         width:100%;        
         font-size: 20px;
     }
 .title{
+    padding: 8px 10px;
     background-color: #00a3af;
     color:white;
     display:  -webkit-flex;
@@ -56,6 +60,19 @@ body{
 .title a{
     color:white;
 }
+.profile {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        background-color: #00a3af;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        line-height: 50px;
+        font-size: 30px;
+        color: white;
+        cursor:pointer;
+    }
 .bg_wood{
     
 }

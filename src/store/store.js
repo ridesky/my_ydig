@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 export default new Vuex.Store({
       state:{
-          allRoomInfo:null,
+          allRoomInfo:[],
+          isOwner:false,
       },
       mutations:{
           updateRoomInfo(state,value){

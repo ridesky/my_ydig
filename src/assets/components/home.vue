@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="bg_wood">
-        <div class="title">
+        <div class="title" v-colors>
             <div><i class="iconfont icon-magnifier"></i>查询房间</div>
             <div>你画我猜</div>
             <label @click="toCreateRoom">创建房间</label>
@@ -10,13 +10,16 @@
             <input v-model="inputValue" class="user_input" @keyup.enter="modifyUser" placeholder="请输入一个用户名"></span>
             <label class="modify" @click="modifyUser">修改</label>
         </div>
-        
+        <div v-show="allRoomInfo.length===0">并没有房间</div>
+        <div v-show="allRoomInfo.length>0">当前房间列表</div>
         <ul>
             <li v-for="(roomInfo,index) in allRoomInfo" class="room_list" @click="toEnterRoom(roomInfo)">
                 <span class="profile" v-colors>{{roomInfo.owner|firstChar}}</span>
                 <div class="list_content">
                     <label class="roomIn">进入房间 房主:{{roomInfo.owner}} </label>
-                    <p>房间人数:{{roomInfo[roomInfo.roomID].length}}/{{roomInfo.maxNumbers}}</p>
+                    <p>房间人数:{{roomInfo[roomInfo.roomID].length}}/{{roomInfo.maxNumbers}}
+                        <span class="status">{{getStatus(roomInfo.roomStatus)}}</span>
+                    </p>
                 </div>            
             </li>
         </ul>
@@ -31,14 +34,16 @@
             return {
                 userInfo: userStorage.fetch(), //加载localstorage
                 inputValue: "",//用于修改用户名
+
             }
         },
         computed:{
             allRoomInfo(){
                 return this.$store.state.allRoomInfo; // 从store中获取 allRoomInfo数据
-            }
+            },
         },
         beforeCreate(){
+            console.log(socket);
             socket.on('updateAllroomInfo',allRoomInfo=>{ // 随时监听是否有房间变动
                 allRoomInfo = JSON.parse(allRoomInfo);
                 this.$store.commit('updateRoomInfo',allRoomInfo);
@@ -47,11 +52,27 @@
         beforeRouteEnter: (to, from, next) => {
             console.log(to.params.roomStatus);
             if(to.params.roomStatus ==="NoRoom"){// 判断是否从room页返回
-                alert('目前没有创建的房间!');
+                alert('目前没有创建的房间,或者当房间仅存一人时,你进行了刷新页面断开连接.');
+            };
+            if(to.params.roomStatus === "ExitRoom"){
+                alert('您已退出房间!');
             };
             next();
         },
         methods: {
+            getStatus(roomStatus){
+                switch (roomStatus) {
+                    case 'isReady':
+                        return '等待中..'
+                        break;
+                    case'isGaming':
+                        return '游戏中'
+                        break;
+                    default: 
+                        return '未知状态..'
+                        break;
+                }
+            },
             modifyUser() {
                 if (this.inputValue.length > 8) {
                     alert('用户名不能长于8个字');
@@ -87,52 +108,23 @@
                 if(roomInfo[roomInfo.roomID].length === roomInfo.maxNumbers){
                     alert('房间人数已满,不能进入!!');
                     return;
-                }else{
+                }else if(roomInfo.roomStatus ==="isReady"){
                      router.push({name:'room',params:{roomID:roomInfo.roomID}})
+                }else if(roomInfo.roomStatus ==="isGaming"){
+                    router.push({name:'game',params:{roomID:roomInfo.roomID}})
                 }
             },
-        },
-        directives: {
-            colors: {
-                bind(e, binding) {
-                    e.style.backgroundColor = "#" + Math.floor(Math.random() * 0xffffff).toString(16); //头像背景随机颜色
-                }
-            },
-        },
-        filters: {
-            firstChar(value) {
-                if (value) {
-                    return value[0];
-                } else {
-                    return '';
-                }
-            }
-        }
+        },        
     }
 
 </script>
 <style>
 body{
-    background: url('./../imgs/wood_pattern.jpg');
-}
-    .user {
+   
         /*font-size: 20px;*/
     }
     .title{
         padding:8px 10px;
-    }
-    .profile {
-        display: inline-block;
-        vertical-align: middle;
-        text-align: center;
-        background-color: #00a3af;
-        border-radius: 50%;
-        height: 50px;
-        width: 50px;
-        line-height: 50px;
-        font-size: 30px;
-        color: white;
-        cursor:pointer;
     }
     .user_input {
         display: inline-block;
@@ -159,5 +151,8 @@ body{
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+    }
+    .status{
+        float:right;
     }
 </style>

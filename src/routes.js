@@ -1,6 +1,7 @@
 import App from "././App.vue"
 import Home from "./assets/components/home.vue"
 import Room from "./assets/components/room.vue"
+import Game from "./assets/components/game.vue"
 
 // 路由配置
 export default {
@@ -19,5 +20,10 @@ export default {
       name:"room",
       component: Room,
     },
+    {
+      path:"/game/:roomID",
+      name:"game",
+      component :Game,
+    }
   ]
 };
