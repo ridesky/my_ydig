@@ -15,7 +15,7 @@
                     <p>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|judgeUser}}</p>
                 </li>
             </ul>
-            <label v-show="getCurrentRoomInfo.owner === mySelf" @click="toBeginGame">开始游戏!</label>
+            <label v-show="getCurrentRoomInfo.owner === mySelf" @click="toBeginGame" style="margin-bottom:10px">开始游戏!</label>
         </div>
     </div>
 </template >
@@ -87,6 +87,10 @@
             });
             socket.on('rpsBeginGame',()=>{
                         console.log('接收到rpsBeginGame事件');
+                        var roomIndex = this.allRoomInfo.findIndex((room,index)=>{ // 获取当前房间的索引
+                            return this.$route.params.roomID in room;
+                        })
+                        socket.emit('gamePlaying',roomIndex);
                         this.$router.replace({ name: "game",params:{roomID:this.$route.params.roomID}});
                     });
         }, 
@@ -107,6 +111,7 @@
                 })
                     if(room.roomStatus === 'isReady'){
                         if(userStorage.fetch().username){
+                            console.log('执行了 var newUser');
                             var newUser = {};
                             newUser.player = userStorage.fetch().username;
                             newUser.roomIndex = roomIndex;                            

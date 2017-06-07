@@ -1,7 +1,13 @@
 <template>
     <div id="app">
-         <div>所有房间信息{{allRoomInfo}}</div>
-         <div>当前房间信息{{getCurrentRoomInfo}}</div>
+         <div style="font-size:12px">所有房间信息{{allRoomInfo}}</div>
+         <div style="font-size:12px">当前房间信息{{getCurrentRoomInfo}}</div>
+         <canvas class="canvas" v-if="isDrawer()" width="600" height="300">
+         </canvas>
+         <div class="blue" v-else>
+		    <image class="getCanvas" src=""></image>
+	    </div>
+         
     </div>
 </template>
 <script>
@@ -17,8 +23,22 @@
                                     }],
                                     roomID:"000",
                                     owner:'null',
+                                    drawer:'null',
+                                    drawerIP:'null',
+                                    roomStatus:'null',
                                 } ,  
             }
+        },
+        methods:{
+            isDrawer(){
+                if(this.mySelf){
+                   if(this.mySelf === this.getCurrentRoomInfo.drawer){
+                       return true;
+                   }else{
+                       return false;
+                   }
+                }
+            },
         },
         computed:{
             allRoomInfo(){ // 获取所有房间信息
@@ -26,6 +46,11 @@
             },
         },
         beforeCreate(){
+            if(!userStorage.fetch().username){
+                alert('没有在首页注册用户');
+                             this.$router.replace({ path: "/home" });
+                             return;
+            };
             socket.on('updateAllroomInfo', allRoomInfo =>{ // 随时监听是否有房间变动
                 allRoomInfo = JSON.parse(allRoomInfo);
                 if (allRoomInfo.length === 0) {
@@ -67,22 +92,11 @@
                     var roomIndex = this.allRoomInfo.findIndex((room,index)=>{ // 获取当前房间的索引
                     return this.$route.params.roomID in room;
                 })
-                    // if(room.roomStatus === 'isReady'){
-                    //     if(userStorage.fetch().username){
-                    //         var newUser = {};
-                    //         newUser.player = userStorage.fetch().username;
-                    //         newUser.roomIndex = roomIndex;                            
-                    //         socket.emit('updateNewUser', JSON.stringify(newUser));
-                    //     }else{
-                    //         alert('没有在首页注册用户');
-                    //         this.$router.replace({ path: "/home" });
-                    //         return;
-                    //     }
-                    // }else if(room.roomStatus === 'isGaming'){
-                    //     alert("游戏正在进行中,不能进入");
-                    //     this.$router.replace({ path: "/home" });
-                    //     return;
-                    // }
+                    if(room.roomStatus ==="isReady"){
+                        alert('游戏结束,返回room室');
+                        this.$router.replace({ name: "room",params:{roomID:this.$route.params.roomID}});
+                        return;
+                    }
                     if(!userStorage.fetch().username){
                         alert('没有在首页注册用户');
                              this.$router.replace({ path: "/home" });
@@ -118,3 +132,14 @@
         },
     }
 </script>
+<style>
+    .canvas{
+        background-color:white;
+    }
+    .blue{
+        width:100%;
+        height:300px;
+        max-width:600px;
+        background:blue;
+    }
+</style>
