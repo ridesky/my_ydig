@@ -102,20 +102,22 @@
                              this.$router.replace({ path: "/home" });
                              return;
                     }
-                    var user = room[room.roomID].findIndex(key=>{
+                    var userIndex = room[room.roomID].findIndex(key=>{//判断当前房间是否有该用户
                         return userStorage.fetch().username === key.player;
                     })
-                    if(user<0){
-                        if(room[room.roomID].length === room.maxNumbers){
-                            alert('玩家人数已满,不能进入');
-                            this.$router.replace({ path: "/home" });
-                            return;
-                        }else{
-                            var newUser = {};
-                             newUser.player = userStorage.fetch().username;
-                             newUser.roomIndex = roomIndex;                            
-                             socket.emit('updateNewUser', JSON.stringify(newUser));
-                        }
+                    if(userIndex<0){
+                        // if(room[room.roomID].length === room.maxNumbers){
+                        //     alert('玩家人数已满,不能进入');
+                        //     this.$router.replace({ path: "/home" });
+                        //     return;
+                        // }else{
+                        //     var newUser = {};
+                        //      newUser.player = userStorage.fetch().username;
+                        //      newUser.roomIndex = roomIndex;                            
+                        //      socket.emit('updateNewUser', JSON.stringify(newUser));
+                        // }
+                        alert('游戏正在进行中,不能进入!!!!!')
+                        this.$router.replace({ path: "/home" });
                     }
                 },
                 deep:true,
