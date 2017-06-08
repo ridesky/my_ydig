@@ -51,13 +51,28 @@
         },
         beforeRouteEnter: (to, from, next) => {
             console.log(to.params.roomStatus);
-            if(to.params.roomStatus ==="NoRoom"){// 判断是否从room页返回
-                alert('目前没有创建的房间,或者当房间仅存一人时,你进行了刷新页面断开连接.');
-            };
-            if(to.params.roomStatus === "ExitRoom"){
-                alert('您已退出房间!');
-            };
-            next();
+            switch (to.params.roomStatus) {
+                case "NoRoom":// 判断是否从room页返回
+                    alert('目前没有创建的房间,或者当房间仅存一人时,你进行了刷新页面断开连接.');
+                    next();
+                    break;
+                case "ExitRoom":
+                     alert('您已退出房间!');
+                     next();
+                case "GameOver":
+                    alert('游戏结束');
+                    next();
+                default:
+                    next();
+                    break;
+            }
+            // if(to.params.roomStatus ==="NoRoom"){// 判断是否从room页返回
+            //     alert('目前没有创建的房间,或者当房间仅存一人时,你进行了刷新页面断开连接.');
+            // };
+            // if(to.params.roomStatus === "ExitRoom"){
+            //     alert('您已退出房间!');
+            // };
+            // next();
         },
         methods: {
             getStatus(roomStatus){

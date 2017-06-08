@@ -91,8 +91,10 @@
                             return this.$route.params.roomID in room;
                         })
                         socket.emit('gamePlaying',roomIndex);
-                        this.$router.replace({ name: "game",params:{roomID:this.$route.params.roomID}});
                     });
+          socket.on('toEnterGame',()=>{
+              this.$router.replace({ name: "game",params:{roomID:this.$route.params.roomID}});
+          })  
         }, 
         mounted(){
             socket.emit('updateAllroomInfo');

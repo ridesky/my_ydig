@@ -72,10 +72,10 @@
                 }
                 console.log('触发了beforecreate');
             });
-            socket.on('rpsBeginGame',()=>{
-                        console.log('接收到rpsBeginGame事件');
-                        this.$router.replace({ name: "game",params:{roomID:this.$route.params.roomID}});
-                    });
+            // socket.on('rpsBeginGame',()=>{
+            //             console.log('接收到rpsBeginGame事件');
+            //             this.$router.replace({ name: "game",params:{roomID:this.$route.params.roomID}});
+            //         });
         },
         mounted(){
             socket.emit('updateAllroomInfo');
@@ -93,8 +93,8 @@
                     return this.$route.params.roomID in room;
                 })
                     if(room.roomStatus ==="isReady"){
-                        alert('游戏结束,返回room室');
-                        this.$router.replace({ name: "room",params:{roomID:this.$route.params.roomID}});
+                        // this.$router.replace({ name: "room",params:{roomID:this.$route.params.roomID}});
+                        this.$router.replace({ name: "home",params:{roomStatus:'GameOver'}});
                         return;
                     }
                     if(!userStorage.fetch().username){
