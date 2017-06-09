@@ -39,10 +39,12 @@ a{
 /* cmoon section */ 
 body{
     max-width: 600px;
+    width: 100%;
     margin: 0 auto;
     background: url('./../imgs/wood_pattern.jpg');
 }
-    .user {
+.user {
+    padding-top: 10px;
 }
 #app{
         width:100%;        
@@ -55,7 +57,6 @@ body{
     display:  -webkit-flex;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
 }
 .title a{
     color:white;

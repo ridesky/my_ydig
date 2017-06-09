@@ -1,4 +1,4 @@
-<template>
+<template>    
     <div id="app" class="bg_wood">
         <div class="title" v-colors>
             <div><i class="iconfont icon-magnifier"></i>查询房间</div>

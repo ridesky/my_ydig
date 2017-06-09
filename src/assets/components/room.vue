@@ -3,7 +3,7 @@
         <div class="title text_center" v-colors>
             <span class="">你画我猜</span>
         </div>
-        This is Rooms {{ $route.params }}
+        <!--This is Rooms {{ $route.params }}-->
         <div style="font-size:12px;">当前房间信息: {{ getCurrentRoomInfo }}</div>
         <div style="font-size:12px;">所有房间息: {{  allRoomInfo }}</div>
         <div class="userContent">
@@ -41,27 +41,7 @@
                     console.log('开启了toBeginGame方法');
                     socket.emit('beginGame',this.$route.params.roomID);                    
                 },         
-            },
-            filters:{
-                judgeUser:(value)=>{
-                    if(value){
-                        return value.player;
-                    }else{
-                        return value;
-                    }
-                },
-                filtersUserName:(value)=>{
-                    if(value){
-                        if(value.player){
-                            return value.player[0];
-                        }else{
-                            return null;
-                        }                       
-                    }else{
-                        return null;
-                    }
-                }
-            },
+            },            
         beforeCreate(){
             // var vm = this;
             // vm.updateAllroomInfo(socket,vm.$router,vm.$route,vm.$store,vm.getCurrentRoomInfo);//getCurrentRoomInfo是引用值 传参后改值会失效
