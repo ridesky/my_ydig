@@ -66,7 +66,7 @@
                 }
                 // console.log('触发了beforecreate');
             });
-            
+            socket.removeListener('rpsBeginGame');//执行前 先移除之前的监听事件
             socket.on('rpsBeginGame',()=>{
                         var roomIndex = this.allRoomInfo.findIndex((room,index)=>{ // 获取当前房间的索引
                             return this.$route.params.roomID in room;

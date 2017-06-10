@@ -7,9 +7,9 @@
         <div class="title text_center" v-colors>
             <span class="">现在由<span v-fontcolors>{{getCurrentRoomInfo.drawer}}</span>开始画图</span>
         </div>
-        <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit>
+        <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit> <!-- v-show="isDrawer()" -->
         </canvas>
-        <div class="blue" v-show="!isDrawer()" v-fit>
+        <div class="blue" v-show="!isDrawer()" v-fit> <!-- v-show="!isDrawer()" -->
             <img class="getCanvas" src="" v-fit></img>
         </div>
         <input type="text" v-show="!isDrawer()" @keyup.13="sendAnswer" class="answer_input" v-model="input_value">
@@ -46,6 +46,7 @@
                 input_value:'',
                 topic:'',
                 prompt:'',
+                roomIndex:'',
             }
         },
         methods: {
@@ -61,7 +62,7 @@
             sendAnswer(){
                 if(this.input_value.trim()){
                     if(this.input_value.length<=20){
-                        socket.emit('sendAnswer',this.input_value);
+                        socket.emit('sendAnswer',{answer:this.input_value,roomIndex:this.roomIndex});
                         this.input_value="";
                     }else{
                         alert('发送信息不得超过20个字符!');
@@ -132,7 +133,8 @@
                     var event = window.event || ev;
                     canvas_context.lineTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
                     canvas_context.stroke();
-                    socket.emit('onDraw', drawCanvas.toDataURL('image/jpg', 1));//触发onDraw 事件 
+                    console.log('准备触发onDraw事件')
+                    socket.emit('onDraw', {url:drawCanvas.toDataURL('image/jpg', 1),roomIndex:this.roomIndex});//触发onDraw 事件
                 }
                 document.onmouseup = () => {
                     document.onmousemove = null;
@@ -146,15 +148,16 @@
                     var event = ev.touches[0];
                     canvas_context.lineTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
                     canvas_context.stroke();
-                    socket.emit('onDraw', drawCanvas.toDataURL('image/jpg', 1));//触发onDraw 事件 
+                    socket.emit('onDraw', {url:drawCanvas.toDataURL('image/jpg', 1),roomIndex:this.roomIndex});//触发onDraw 事件
+
                 };
                 document.ontouchend = () => {
                     document.ontouchmove = null;
                 };
             };
-            socket.on('onDraw', data => {
+            socket.on('onDraw', url => {
                 console.log('接受到了onDraw事件');
-                getCanvas.src = data;
+                getCanvas.src = url;
             });
             socket.on('rpsSendAnswer',msg=>{
                 // console.log('接收到了消息');
@@ -182,7 +185,7 @@
                         var getCanvas = document.querySelector(".getCanvas");
                         getCanvas.src="";
                     }
-                    var roomIndex = this.allRoomInfo.findIndex((room, index) => { // 获取当前房间的索引
+                    this.roomIndex = this.allRoomInfo.findIndex((room, index) => { // 获取当前房间的索引
                         return this.$route.params.roomID in room;
                     })
                     if (room.roomStatus === "isReady") {
