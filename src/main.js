@@ -5,10 +5,9 @@ import store from './store/store'
 import routes from "./routes"
 import './assets/css/layout.css'
 import './assets/font/iconfont.css'
-document.addEventListener('touchmove', function (e) { e.preventDefault() }, false); //阻止移动端下拉刷新
 Vue.use(VueRouter); // 引用vue-router插件
 var router = new VueRouter(routes);
-var ip = "192.168.1.82"; // !!!!!!!!!!!!!   该地址为调试地址  随时记得要更换 !!!!!!!!!!!!
+var ip = "192.168.0.102"; // !!!!!!!!!!!!!   该地址为调试地址  随时记得要更换 !!!!!!!!!!!!
 var socket = io("http://" + ip + ":9999");// 连接socket 
 Vue.directive('colors', {//定义全局自定义组件
   bind(e, binding) {

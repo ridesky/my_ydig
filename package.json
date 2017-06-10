@@ -5,7 +5,7 @@
   "author": "tqzou <qtz235689@163.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server  --host 192.168.1.82 --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server  --host 192.168.0.102 --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {

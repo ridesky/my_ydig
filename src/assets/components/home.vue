@@ -59,9 +59,15 @@
                 case "ExitRoom":
                      alert('您已退出房间!');
                      next();
+                     break;
                 case "GameOver":
                     alert('游戏结束');
                     next();
+                    break;
+                case "NoReg":
+                    alert('nonono!');
+                    next();
+                    break;
                 default:
                     next();
                     break;
