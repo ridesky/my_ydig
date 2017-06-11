@@ -148,8 +148,8 @@
      text-align:center;
  }
  .player_ul{
-     /*display:-webkit-flex;*/
-     /*display: flex;*/
+     display:-webkit-flex;
+     display: flex;
      text-align: center;
  }
 .player_list{

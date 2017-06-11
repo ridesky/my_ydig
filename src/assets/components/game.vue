@@ -16,7 +16,10 @@
 
         <ul class="player_ul clearfix">
             <li v-for="(n,index) in 6" class="player_list" v-show="getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]">
-                <span class="profile" v-colors>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|filtersUserName}}</span>
+                <div class="user_pro">
+                    <span class="profile" v-colors>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|filtersUserName}}</span>
+                    <span class="score">{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|filtersScore}}</span>
+                </div>
                 <p v-show="!getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]">{{"等待加入"}}</p>
                 <p>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|judgeUser}}</p>
             </li>
@@ -248,5 +251,22 @@
         width: 16.5%;
         padding-top: 20px;
         font-size: 12px;
+    }
+    .user_pro{
+        position: relative;
+    }
+    .score{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -7px;
+        margin-left: 15px;
+        vertical-align: middle;
+        text-align: center;
+        border-radius:50%;
+        width:17px;
+        height:17px;
+        display:inline-block;
+        background-color:   rgb(241, 94, 102);
     }
 </style>

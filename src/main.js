@@ -37,6 +37,17 @@ Vue.filter('filtersUserName', function (value) {
     return null;
   }
 });
+Vue.filter('filtersScore', function (value) {
+  if (value) {
+    if (value.player) {
+      return value.score;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+});
 Vue.filter('judgeUser', function (value) {
   if (value) {
     return value.player;
