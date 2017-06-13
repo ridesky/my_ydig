@@ -4,8 +4,8 @@
             <span class="">你画我猜</span>
         </div>
         <!--This is Rooms {{ $route.params }}-->
-        <div style="font-size:12px;">当前房间信息: {{ getCurrentRoomInfo }}</div>
-        <div style="font-size:12px;">所有房间息: {{  allRoomInfo }}</div>
+        <!--<div style="font-size:12px;">当前房间信息: {{ getCurrentRoomInfo }}</div>-->
+        <!--<div style="font-size:12px;">所有房间息: {{  allRoomInfo }}</div>-->
         <div class="userContent">
             <div>你是<p class="profile">{{mySelf|firstChar}}</p>{{mySelf}}</div>
             <ul class="player_ul clearfix">

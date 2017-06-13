@@ -2,16 +2,22 @@
     <div id="app">
         <!--<div style="font-size:12px">所有房间信息{{allRoomInfo}}</div>-->
         <div style="font-size:12px">当前房间信息{{getCurrentRoomInfo}}</div>
-        <div v-show="isDrawer()">题目{{topic}}</div>
-        <div v-show="!isDrawer()">提示{{prompt}}</div>
+        <div v-show="isDrawer()">题目: {{topic}}</div>
+        <div v-show="!isDrawer()">提示: {{prompt}}</div>
         <div class="title text_center" v-colors>
             <span class="">现在由<span v-fontcolors>{{getCurrentRoomInfo.drawer}}</span>开始画图</span>
         </div>
-        <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit> <!-- v-show="isDrawer()" -->
-        </canvas>
-        <div class="blue" v-show="!isDrawer()" v-fit> <!-- v-show="!isDrawer()" -->
-            <img class="getCanvas" src="" v-fit></img>
+        <div class="content">
+            <div class="dialog" v-show="showAnswer"><p>答案:{{getAnswer}}</p></div>
+            <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit>
+                <!-- v-show="isDrawer()" -->
+            </canvas>
+            <div class="blue" v-show="!isDrawer()" v-fit>
+                <!-- v-show="!isDrawer()" -->
+                <img class="getCanvas" src="" v-fit></img>
+            </div>
         </div>
+
         <input type="text" v-show="!isDrawer()" @keyup.13="sendAnswer" class="answer_input" v-model="input_value">
 
         <ul class="player_ul clearfix">
@@ -46,10 +52,12 @@
                     roomStatus: 'null',
                 },
                 canvasSrc: '',
-                input_value:'',
-                topic:'',
-                prompt:'',
-                roomIndex:'',
+                input_value: '',
+                topic: '',
+                prompt: '',
+                roomIndex: '',
+                showAnswer: false,
+                getAnswer: '',
             }
         },
         methods: {
@@ -62,16 +70,16 @@
                     }
                 }
             },
-            sendAnswer(){
-                if(this.input_value.trim()){
-                    if(this.input_value.length<=20){
-                        socket.emit('sendAnswer',{answer:this.input_value,roomIndex:this.roomIndex});
-                        this.input_value="";
-                    }else{
+            sendAnswer() {
+                if (this.input_value.trim()) {
+                    if (this.input_value.length <= 20) {
+                        socket.emit('sendAnswer', { answer: this.input_value, roomIndex: this.roomIndex });
+                        this.input_value = "";
+                    } else {
                         alert('发送信息不得超过20个字符!');
-                    };                    
+                    };
                 };
-                
+
             },
         },
         computed: {
@@ -106,7 +114,7 @@
                 }
                 // console.log('触发了beforecreate');
             });
-            socket.on('sendTopic',topicMsg=>{
+            socket.on('sendTopic', topicMsg => {
                 console.log('收到了sendTopic消息')
                 console.log(topicMsg);
                 this.topic = topicMsg.topic;
@@ -126,18 +134,22 @@
             console.log('room页的mounted执行了');
             var drawCanvas = document.querySelector(".canvas");
             var getCanvas = document.querySelector(".getCanvas");
+            var getContent = document.querySelector(".content");
             var canvas_context = drawCanvas.getContext('2d');
             drawCanvas.addEventListener('touchmove', function (e) { e.preventDefault() }, false); //阻止移动端在canvas中下拉
             drawCanvas.onmousedown = (ev) => {// pc端
                 var event = window.event || ev;
-                canvas_context.moveTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
+                canvas_context.moveTo(event.clientX - getContent.offsetLeft, event.clientY - getContent.offsetTop + document.body.scrollTop);
                 document.onmousemove = (ev) => {
                     //move事件
                     var event = window.event || ev;
-                    canvas_context.lineTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
+                    // console.log("event.clientX 为"+ event.clientX);
+                    // console.log('drawCanvas.offsetLeft 为'+ drawCanvas.offsetLeft);
+                    // console.log('content left :' + getContent.offsetLeft)
+                    canvas_context.lineTo(event.clientX - getContent.offsetLeft, event.clientY - getContent.offsetTop + document.body.scrollTop);
                     canvas_context.stroke();
                     console.log('准备触发onDraw事件')
-                    socket.emit('onDraw', {url:drawCanvas.toDataURL('image/jpg', 1),roomIndex:this.roomIndex});//触发onDraw 事件
+                    socket.emit('onDraw', { url: drawCanvas.toDataURL('image/jpg', 1), roomIndex: this.roomIndex });//触发onDraw 事件
                 }
                 document.onmouseup = () => {
                     document.onmousemove = null;
@@ -146,12 +158,12 @@
 
             drawCanvas.ontouchstart = (ev) => {// 移动端
                 var event = ev.touches[0];
-                canvas_context.moveTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
+                canvas_context.moveTo(event.clientX - getContent.offsetLeft, event.clientY - getContent.offsetTop + document.body.scrollTop);
                 document.ontouchmove = (ev) => {
                     var event = ev.touches[0];
-                    canvas_context.lineTo(event.clientX - drawCanvas.offsetLeft, event.clientY - drawCanvas.offsetTop + document.body.scrollTop);
+                    canvas_context.lineTo(event.clientX - getContent.offsetLeft, event.clientY - getContent.offsetTop + document.body.scrollTop);
                     canvas_context.stroke();
-                    socket.emit('onDraw', {url:drawCanvas.toDataURL('image/jpg', 1),roomIndex:this.roomIndex});//触发onDraw 事件
+                    socket.emit('onDraw', { url: drawCanvas.toDataURL('image/jpg', 1), roomIndex: this.roomIndex });//触发onDraw 事件
 
                 };
                 document.ontouchend = () => {
@@ -162,16 +174,18 @@
                 console.log('接受到了onDraw事件');
                 getCanvas.src = url;
             });
-            socket.on('rpsSendAnswer',msg=>{
+            socket.on('rpsSendAnswer', msg => {
                 // console.log('接收到了消息');
                 console.log(msg);
             })
-            // socket.on('sendTopic',topicMsg=>{
-            //     console.log('收到了sendTopic消息')
-            //     console.log(topicMsg);
-            //     this.topic = topicMsg.topic;
-            //     this.prompt = topicMsg.prompt;
-            // })
+            socket.on('getAnswer',topic=>{
+                this.getAnswer = topic;
+                this.showAnswer = true;
+                var getAnswer = setTimeout(()=>{
+                    this.showAnswer = false;
+                    clearTimeout(getAnswer);
+                }, 3000);
+            })
         },
         watch: {
             getCurrentRoomInfo: {
@@ -181,12 +195,12 @@
                     // console.log(room);
                     // console.log('旧值为:')
                     // console.log(oldRoom);
-                    if(room.drawer != this.mySelf){
+                    if (room.drawer != this.mySelf) {
                         var drawCanvas = document.querySelector(".canvas");
-                        drawCanvas.height=350;
-                    }else{
+                        drawCanvas.height = 350;
+                    } else {
                         var getCanvas = document.querySelector(".getCanvas");
-                        getCanvas.src="";
+                        getCanvas.src = "";
                     }
                     this.roomIndex = this.allRoomInfo.findIndex((room, index) => { // 获取当前房间的索引
                         return this.$route.params.roomID in room;
@@ -236,7 +250,7 @@
         width: 100%;
         height: 350px;
         max-width: 600px;
-        background: #00a3af;
+        background: #fff;
     }
 
     .answer_input {
@@ -252,10 +266,12 @@
         padding-top: 20px;
         font-size: 12px;
     }
-    .user_pro{
+
+    .user_pro {
         position: relative;
     }
-    .score{
+
+    .score {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -263,10 +279,28 @@
         margin-left: 15px;
         vertical-align: middle;
         text-align: center;
-        border-radius:50%;
-        width:17px;
-        height:17px;
-        display:inline-block;
-        background-color:   rgb(241, 94, 102);
+        border-radius: 50%;
+        width: 17px;
+        height: 17px;
+        display: inline-block;
+        background-color: rgb(241, 94, 102);
+        color: #fff;
+    }
+    .content{
+        position: relative;
+    }
+    .dialog {
+        text-align: center;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -100px;
+        margin-left: -100px;
+        background-color: #f5b1aa
+    }
+    .dialog p{
+        line-height: 200px;
     }
 </style>
