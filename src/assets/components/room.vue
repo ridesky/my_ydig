@@ -7,7 +7,7 @@
         <!--<div style="font-size:12px;">当前房间信息: {{ getCurrentRoomInfo }}</div>-->
         <!--<div style="font-size:12px;">所有房间息: {{  allRoomInfo }}</div>-->
         <div class="userContent">
-            <div>你是<p class="profile">{{mySelf|firstChar}}</p>{{mySelf}}</div>
+            <div class="self_info">你是<p class="profile">{{mySelf|firstChar}}</p>{{mySelf}}</div>
             <ul class="player_ul clearfix">
                 <li v-for="(n,index) in 6" class="player_list">
                     <span class="profile" v-colors >{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|filtersUserName}}</span>
@@ -171,6 +171,9 @@
 }
 .begin:hover{
     box-shadow: #ba2636 0px 0px 10px;
+}
+.self_info{
+    padding-top: 20px;
 }
 .begin label{
     width: 50px;

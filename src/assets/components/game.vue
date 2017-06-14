@@ -2,24 +2,22 @@
     <div id="app">
         <!--<div style="font-size:12px">所有房间信息{{allRoomInfo}}</div>-->
         <!--<div style="font-size:12px">当前房间信息{{getCurrentRoomInfo}}</div>-->
-        <div v-show="isDrawer()">题目: {{topic}}</div>
-        <div v-show="!isDrawer()">提示: {{prompt}}</div>
         <div class="title text_center" v-colors>
-            <span class="">现在由<span v-fontcolors>{{getCurrentRoomInfo.drawer}}</span>开始画图</span>
+            <!--<span class="">现在由<span v-fontcolors>{{getCurrentRoomInfo.drawer}}</span>开始画图</span>-->
+            <div v-show="isDrawer()">题目: {{topic}}</div>
+            <div v-show="!isDrawer()">提示: {{prompt}}</div>
         </div>
         <div class="content">
-            <div class="dialog" v-show="showAnswer"><p>答案:<br/>{{getAnswer}}</p></div>
+            <div class="dialog" v-show="showAnswer">
+                <p>答案:<br/>{{getAnswer}}</p>
+            </div>
             <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit>
-                <!-- v-show="isDrawer()" -->
             </canvas>
             <div class="blue" v-show="!isDrawer()" v-fit>
-                <!-- v-show="!isDrawer()" -->
                 <img class="getCanvas" src="" v-fit></img>
             </div>
         </div>
-
-        <input type="text" v-show="!isDrawer()" @keyup.13="sendAnswer" class="answer_input" v-model="input_value">
-
+        <input type="text" v-show="!isDrawer()" @keyup.13="sendAnswer" class="answer_input" v-model="input_value" placeholder="在此输入答案..">
         <ul class="player_ul clearfix">
             <li v-for="(n,index) in 6" class="player_list" v-show="getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]">
                 <div class="user_pro">
@@ -30,7 +28,7 @@
                 <p>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|judgeUser}}</p>
             </li>
         </ul>
-
+        
     </div>
 </template>
 <script>
@@ -178,10 +176,10 @@
                 // console.log('接收到了消息');
                 console.log(msg);
             })
-            socket.on('getAnswer',topic=>{
+            socket.on('getAnswer', topic => {
                 this.getAnswer = topic;
                 this.showAnswer = true;
-                var getAnswer = setTimeout(()=>{
+                var getAnswer = setTimeout(() => {
                     this.showAnswer = false;
                     clearTimeout(getAnswer);
                 }, 3000);
@@ -254,16 +252,22 @@
     }
 
     .answer_input {
-        border-radius: 3px;
+        /*position: fixed;*/
+        /*bottom: 0px;*/
+        max-width: 600px;
+        border: none;
+        border-bottom: salmon solid 2px;
+        background-color: rgb(255, 255, 255);
         width: 100%;
-        height: 30px;
-        padding: 10px;
+        height: 40px;
+        padding: 10px 15px;
+        outline: none;
     }
 
     .player_list {
         float: left;
         width: 16.5%;
-        padding-top: 20px;
+        padding-top: 10px;
         font-size: 12px;
     }
 
@@ -276,19 +280,21 @@
         left: 50%;
         top: 50%;
         margin-top: -7px;
-        margin-left: 15px;
-        vertical-align: middle;
-        text-align: center;
-        border-radius: 50%;
+        margin-left: 10px;
         width: 17px;
         height: 17px;
+        line-height: 17px;
+        text-align: center;
+        border-radius: 50%;
         display: inline-block;
         background-color: rgb(241, 94, 102);
         color: #fff;
     }
-    .content{
+
+    .content {
         position: relative;
     }
+
     .dialog {
         text-align: center;
         width: 200px;
@@ -302,7 +308,8 @@
         border-radius: 50%;
         color: #fff;
     }
-    .dialog p{
+
+    .dialog p {
         /*line-height: 200px;*/
         width: 100px;
         height: 100px;
@@ -310,5 +317,12 @@
         left: 50%;
         top: 50%;
         transform: translateX(-50%) translateY(-50%);
+    }
+
+    .user_pro .profile {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        font-size: 20px;
     }
 </style>
