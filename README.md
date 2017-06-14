@@ -28,7 +28,7 @@ npm run dev
 
 ### 启动后主页如下:
 
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg=360*640?raw=true)
+![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg?raw=true)
 
 - 在首页添加用户名
 - 列表可以实时更新当前在线的房间和游戏状态
