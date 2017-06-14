@@ -28,7 +28,7 @@ npm run dev
 
 ### 启动后主页如下:
 
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg?raw=true)
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - 在首页添加用户名
 - 列表可以实时更新当前在线的房间和游戏状态
@@ -36,25 +36,24 @@ npm run dev
 
 ### 创建房间后如图:
 
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E5%87%86%E5%A4%87.jpg?raw=true)
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E5%87%86%E5%A4%87.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - "盆"和 "笔记本"是我用电脑和另外的手机分别加入的房间
 - 房间最多可加入6人
 
 ### 游戏开始界面:
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E7%94%BB%E5%9B%BE.jpg?raw=true)
-
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E7%94%BB%E5%9B%BE.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - 绘图者的界面顶部是出题题目,进行绘图
 - 猜图者顶部显示的是文字提示
 
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E8%AF%84%E5%88%86.jpg?raw=true)
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E8%AF%84%E5%88%86.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - 在input输入框中输入答案.
 - 猜图者答对题后,drawer加一分,第一个猜对图的加两分,接下来猜对的加一分
 - 每回合结束后 界面弹出正确答案:
-![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E7%AD%94%E6%A1%88%E5%BC%B9%E5%87%BA.jpg?raw=true)
 
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E7%AD%94%E6%A1%88%E5%BC%B9%E5%87%BA.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 ### Balabala
 
