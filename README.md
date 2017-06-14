@@ -45,8 +45,8 @@ npm run dev
 ![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E7%94%BB%E5%9B%BE.jpg?raw=true)
 
 
-- drawer的界面顶部是出题题目,进行绘图
-- 猜图顶部显示的是文字提示
+- 绘图者的界面顶部是出题题目,进行绘图
+- 猜图者顶部显示的是文字提示
 
 ![image](https://github.com/ridesky/ridesky.github.io/blob/master/%E8%AF%84%E5%88%86.jpg?raw=true)
 
