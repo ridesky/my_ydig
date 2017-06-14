@@ -15,7 +15,7 @@
                     <p>{{getCurrentRoomInfo[getCurrentRoomInfo.roomID][index]|judgeUser}}</p>
                 </li>
             </ul>
-            <label v-show="getCurrentRoomInfo.owner === mySelf" @click="toBeginGame" style="margin-bottom:10px">开始游戏!</label>
+            <div v-show="getCurrentRoomInfo.owner === mySelf" @click="toBeginGame"  class="begin"> <label>开始游戏!</label> </div>
         </div>
     </div>
 </template >
@@ -156,5 +156,31 @@
     float: left;
     width: 33.33%;
     padding-top: 20px;
+}
+.begin{
+    position: relative;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgb(216, 17, 91);
+    color: #fff;
+    margin: 20px auto;
+    cursor: pointer;
+}
+.begin:hover{
+    box-shadow: #ba2636 0px 0px 10px;
+}
+.begin label{
+    width: 50px;
+    height: 50px;
+    /*display: inline-block;*/
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    cursor: pointer;
 }
 </style>

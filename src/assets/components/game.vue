@@ -1,14 +1,14 @@
 <template>
     <div id="app">
         <!--<div style="font-size:12px">所有房间信息{{allRoomInfo}}</div>-->
-        <div style="font-size:12px">当前房间信息{{getCurrentRoomInfo}}</div>
+        <!--<div style="font-size:12px">当前房间信息{{getCurrentRoomInfo}}</div>-->
         <div v-show="isDrawer()">题目: {{topic}}</div>
         <div v-show="!isDrawer()">提示: {{prompt}}</div>
         <div class="title text_center" v-colors>
             <span class="">现在由<span v-fontcolors>{{getCurrentRoomInfo.drawer}}</span>开始画图</span>
         </div>
         <div class="content">
-            <div class="dialog" v-show="showAnswer"><p>答案:{{getAnswer}}</p></div>
+            <div class="dialog" v-show="showAnswer"><p>答案:<br/>{{getAnswer}}</p></div>
             <canvas class="canvas" v-show="isDrawer()" width="600" height="350" v-fit>
                 <!-- v-show="isDrawer()" -->
             </canvas>
@@ -298,9 +298,17 @@
         top: 50%;
         margin-top: -100px;
         margin-left: -100px;
-        background-color: #f5b1aa
+        background-color: #f5b1aa;
+        border-radius: 50%;
+        color: #fff;
     }
     .dialog p{
-        line-height: 200px;
+        /*line-height: 200px;*/
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
     }
 </style>
