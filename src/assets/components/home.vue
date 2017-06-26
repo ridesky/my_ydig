@@ -10,8 +10,8 @@
             <input v-model="inputValue" class="user_input" @keyup.enter="modifyUser" placeholder="请输入一个用户名"></span>
             <label class="modify" @click="modifyUser">修改</label>
         </div>
-        <div v-show="allRoomInfo.length===0">并没有房间</div>
-        <div v-show="allRoomInfo.length>0">当前房间列表</div>
+        <h4 class="room_status" v-show="allRoomInfo.length===0">并没有房间,请点击右上角创建房间</h4>
+        <h4 class="room_status" v-show="allRoomInfo.length>0">当前房间列表 : </h4>
         <ul>
             <li v-for="(roomInfo,index) in allRoomInfo" class="room_list" @click="toEnterRoom(roomInfo)">
                 <span class="profile" v-colors>{{roomInfo.owner|firstChar}}</span>
@@ -158,6 +158,11 @@ body{
         border-radius: 2px;
         padding: 3px 5px;
         background-color: #00a3af;
+    }
+    .room_status{
+        color:#fff;
+        text-align:center;
+        padding-top:10px;
     }
     .room_list{
         display: -webkit-flex;
