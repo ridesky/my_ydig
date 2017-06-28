@@ -1,6 +1,6 @@
 # my_ydig
 
-> 基于 socket.io + Vue2 全家桶独立写的的你画我猜项目 [示例demo](http://ridesky.me/)
+> 基于 socket.io + Vue2 全家桶独立写的的你画我猜项目 [在线demo](http://ridesky.me/)
 ### 初步已完成,未来进行代码优化.
 
 ## 启动
