@@ -116,7 +116,7 @@
                     roomID:null, // 初始化 等待服务器设置
                     ownerIP:null,// 初始化 等待服务器设置
                     roomStatus:'isReady', // 设置 ready gaming end undefined,
-                    maxNumbers:5, // 设置最多成员客户端负责初始化  服务端负责真正设置
+                    maxNumbers:6, // 设置最多成员客户端负责初始化  服务端负责真正设置
                     players: [],//{ player: this.userInfo.username, playerIP:'', }, // 初始化房主 添加到玩家成员里
                 };
                 socket.emit('createRoom', roomInfo); // 向服务器传达 createroom事件

@@ -8,7 +8,8 @@ import './assets/font/iconfont.css'
 Vue.use(VueRouter); // 引用vue-router插件
 var router = new VueRouter(routes);
 var ip = "192.168.1.82"; // !!!!!!!!!!!!!   该地址为调试地址  随时记得要更换 !!!!!!!!!!!!
-var socket = io("http://" + ip + ":9999");// 连接socket 
+// var socket = io("http://" + ip + ":3000");// 连接socket 
+var socket = io ("http://ridesky.leanapp.cn/");
 Vue.directive('colors', {//定义全局自定义组件
   bind(e, binding) {
     e.style.backgroundColor = "#" + Math.floor(Math.random() * 0xffffff).toString(16); //头像背景随机颜色
