@@ -1,4 +1,4 @@
-import App from "././App.vue"
+// import App from "././App.vue"
 import Home from "./assets/components/home.vue"
 import Room from "./assets/components/room.vue"
 import Game from "./assets/components/game.vue"
@@ -8,7 +8,8 @@ export default {
   routes: [
     {
       path:"/",
-      component:App,
+      redirect: "/home"
+      // component:App,
     },
     {
       path: "/home",

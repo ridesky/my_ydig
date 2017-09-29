@@ -47,7 +47,7 @@ npm run dev
 
     项目是基于vue做的单页面应用,client端通过监听server端自定义的"updateAllroomInfo"事件接受所有房间信息,存储到vuex的store里,进行实各组件时更新房间信息数据,右上角创建房间,在server端进行房间初始化:
 
-<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/game/%E6%88%BF%E9%97%B4%E5%88%97%E8%A1%A8.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 ```js
     var roomInfo = { // 创建房间前 初始化信息 记得让服务器返回一个房间ID
@@ -68,7 +68,7 @@ npm run dev
     
     房间功能也是每当有玩家进入后则更新房间信息获取所有玩家对象,然后v-if遍历一遍,添加到列表中.
 
-<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E5%87%86%E5%A4%87.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/game/%E5%87%86%E5%A4%87.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 ### 游戏开始界面:
 
@@ -77,16 +77,16 @@ npm run dev
 
     pc端和移动端通过使用原生js事件来绘制canvas画布,通过base64编码的格式传送给各个socket客户端接收然后在img标签上渲染.
 
-<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E7%94%BB%E5%9B%BE.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/game/%E7%94%BB%E5%9B%BE.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - 在input输入框中输入答案.
 - 猜图者答对题后,绘图者加一分,第一个猜对图的加两分,接下来猜对的加一分
 
-<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E8%AF%84%E5%88%86.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/game/%E8%AF%84%E5%88%86.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 - 每回合结束后 界面弹出正确答案:
 
-<img src="https://github.com/ridesky/ridesky.github.io/blob/master/%E7%AD%94%E6%A1%88%E5%BC%B9%E5%87%BA.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
+<img src="https://github.com/ridesky/ridesky.github.io/blob/master/game/%E7%AD%94%E6%A1%88%E5%BC%B9%E5%87%BA.jpg?raw=true" width = "360" height = "640" alt="图片名称" align=center />
 
 通过在服务端设置setInterval计时器来对每回合计时,对房间玩家是否退出房间,是否到第二轮进行判断(当有玩家中途退出时,根据当前索引值和玩家数来更改绘图者的索引).对玩家答题状态,绘图者身份,答题人数进行重置.
 
